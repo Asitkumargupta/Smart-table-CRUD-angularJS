@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html  ng-app="helloApp">
+<head>
+	<title>Add Table Rows dynamically</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<script type="text/javascript" src="bower_components/angular-smart-table/dist/smart-table.js"></script>
+	<script type="text/javascript" src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</head>
+<body ng-controller="CompanyCtrl" class="container">
+<div class="row">
+	<div class="page-header">
+             <h1 class="text-center">Smart Table with CRUD</h1>
+     </div>
+</div>
+<div class="row">
+	<button class="btn btn-primary"  ng-click="(showForm = ! showForm) ">Add New User</button>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<form class="form-horizontal" role="form" ng-show="showForm" ng-submit="addRow()">
+           <div class="form-group">
+			<label class="col-md-3 control-label">Name</label>
+			
+			<input type="text" class="form-control" name="name" ng-model="name" required></input>
+			
+		  </div>
+          <div class="form-group">
+			<label class="control-label">Roll Number</label>
+			
+				<input type="number" class="form-control" name="Roll" ng-model="Roll" required></input>
+			
+		  </div>
+		  <div class="form-group">
+			<label class="control-label">Class</label>
+			<input type="text" class="form-control" name="class" ng-model="class" required></input>
+		  </div>
+
+          <div class="form-group">
+			<label class="control-label">Section</label>
+			<input type="text" class="form-control" name="number"  ng-model="number" required></input>
+		  </div>
+		  <div class="form-group">
+			<label class="control-label">Description</label>
+			<textarea type ="text" class="form-control" name="description" ng-model="description" required></textarea>
+		  </div>
+          <div class="form-group">
+          	 <input type="submit" value="Submit" class="btn btn-primary center-block" ng-show="sub"/>
+          </div>
+          <div class="form-group">
+          	<input value="Edit & Submit" class="btn btn-primary center-block" ng-click='submitchange();(showForm = ! showForm)' ng-show="Edit"/>
+          </div>
+		</form>
+	</div>
+
+<!--<div class="col-md-4" >
+	<form class="form-horizontal" role="form" ng-show="showForm" ng-submit="addRow()">
+		<div class="form-group">
+			<label class="col-md-2 control-label">Name</label>
+			
+			<input type="text" class="form-control" name="name" ng-model="name" required></input>
+			
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">Roll Number</label>
+			
+				<input type="number" class="form-control" name="number" ng-model="number" required></input>
+			
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">Class</label>
+			<input type="text" class="form-control" name="class" ng-model="class" required></input>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">Section</label>
+			<input type="text" class="form-control" name="headoffice" ng-model="headoffice" required></input>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">Description</label>
+			<textarea type ="text" class="form-control" name="description" ng-model="description" required></textarea>
+		</div>
+		<div class="form-group">
+			<div style="padding-left:110px">
+			<input type="submit" value="Submit" class="btn btn-primary"/>
+		</div>
+		<div class="form-group">
+			<div style="padding-left:110px">
+			<input value="EDIT" class="btn btn-primary" ng-click='submitchange()'/>
+		</div>
+		
+		</div>
+	</form>
+</div>-->
+<div class="col-md-8">
+   <div class="row">
+	<input ng-model="query" type="text" class="form-control" placeholder="Search global"></input>
+	
+   </div>
+   <table  st-table="displayedData" st-safe-src="companies" class="table table-striped">
+   
+	<tr>
+		<th st-sort="name">Name</th>
+		<th st-sort="Roll">Roll Number</th>
+		<th st-sort="class">Class</th>
+		<th st-sort="number">Section</th>
+		<th> Description </th>
+		<th> Action </th>
+
+	</tr>
+	<tr ng-repeat="company in displayedData | filter:query" >
+		<td ng-model="company.name">{{company.name}}
+		</td>
+		
+		<td ng-model="company.Roll">{{company.Roll}}
+		</td>
+		<td ng-model="company.class">{{company.class}}
+		</td>
+		<td ng-model="company.number">{{company.number}}
+		</td>
+		<td ng-model="company.description">{{company.description}}
+		</td>
+		<td>
+				<button type="button" ng-click="removeItem(company)" class="btn btn-sm btn-danger">
+					<i class="glyphicon glyphicon-remove-circle">
+					</i>
+				</button>
+			
+		
+				<button type="button" ng-click="EditItem(company)" class="btn btn-sm btn-default">
+					<i class=" glyphicon glyphicon-pencil">
+					</i>
+				</button>
+				</td>	
+		
+	</tr>
+</table>
+</div>
+</div>
+
+</body>
+</html>
